@@ -24,7 +24,5 @@ RUN apk add --update --no-cache ca-certificates \
 
 ENV PYTHONPATH "/usr/lib/python3.8/site-packages/"
 
-RUN pip install awscli
-
 COPY . /usr/src/
 ENTRYPOINT ["node", "/usr/src/index.js"]
