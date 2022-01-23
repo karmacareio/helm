@@ -6,7 +6,8 @@ ENV HELM_2_FILE="helm-v2.17.0-linux-amd64.tar.gz"
 ENV HELM_3_FILE="helm-v3.4.2-linux-amd64.tar.gz"
 
 RUN apk add --no-cache ca-certificates \
-    --repository http://dl-3.alpinelinux.org/alpine/edge/community/ \
+    # This seems to break stuff
+    # --repository http://dl-3.alpinelinux.org/alpine/edge/community/ \
     jq curl bash nodejs aws-cli && \
     # Install helm version 2:
     curl -L ${BASE_URL}/${HELM_2_FILE} |tar xvz && \
@@ -22,8 +23,6 @@ RUN apk add --no-cache ca-certificates \
     helm init --client-only
 
 ENV PYTHONPATH "/usr/lib/python3.8/site-packages/"
-
-RUN pip install awscli
 
 COPY . /usr/src/
 ENTRYPOINT ["node", "/usr/src/index.js"]
